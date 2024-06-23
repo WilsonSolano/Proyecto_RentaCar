@@ -24,6 +24,31 @@
                             <div class="form-group col-sm-6">
                                 <input type="text" class="form-control form-control-sm" id="txtNombreCliente" placeholder="nombre completo">
                             </div>
+                            <div class="form-group col-sm-6">
+                                <input type="email" class="form-control form-control-sm" id="txtEmailCLiente" placeholder="Example@gmail.com">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <input type="text" class="form-control form-control-sm" id="txtTelefonoCliente" placeholder="1234-5678">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <input type="text" class="form-control form-control-sm" id="txtDireccionCliente" placeholder="Colonia Campo Verde">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <input type="text" class="form-control form-control-sm" id="txtDUICliente" placeholder="12345678-9">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="cboTipoLicencia">Tipo de Licencia</label>
+                                <select class="form-control form-control-sm" id="cboTipoLicencia">
+                                    <option value="" selected disabled>---Seleccione un tipo de licencia---</option>
+                                    <option value="particular">Particular</option>
+                                    <option value="moto">Moto</option>
+                                    <option value="liviana">Liviana</option>
+                                    <option value="pesada">Pesada</option>
+                                    <option value="especial">Especial</option>
+                                    <option value="publica">Pública</option>
+                                </select>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -33,7 +58,32 @@
             <div class="col-sm-12">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3 bg-second-primary">
-                        <h6 class="m-0 font-weight-bold text-white">Productos</h6>
+                        <h6 class="m-0 font-weight-bold text-white">Cliente</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group col-sm-6">
+                                <label for="fechaInicio">Fecha Inicio de Renta</label>
+                                <input type="date" class="form-control form-control-sm" id="fechaInicio">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="fechaFin">Fecha Fin de Renta</label>
+                                <input type="date" class="form-control form-control-sm" id="fechaFin">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="txtDiasTotal">Total Días de Renta</label>
+                                <input type="text" class="form-control form-control-sm" id="txtDiasTotal" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3 bg-second-primary">
+                        <h6 class="m-0 font-weight-bold text-white">Vehiculo</h6>
                     </div>
                     <div class="card-body">
                         <div class="form-row">
@@ -48,11 +98,12 @@
                                 <table class="table table-striped table-sm" id="tbProducto">
                                     <thead>
                                         <tr>
-                                            <th></th>
-                                            <th>Producto</th>
-                                            <th>Cantidad</th>
-                                            <th>Precio</th>
-                                            <th>Total</th>
+                                            <th>Marca</th>
+                                            <th>Modelo</th>
+                                            <th>Año</th>
+                                            <th>Placas</th>
+                                            <th>Precio Renta</th>
+                                            <th>Descripcion</th>
                                         </tr>
                                     </thead>
                                     <tbody>

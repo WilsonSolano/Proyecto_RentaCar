@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Historial Renta";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -39,44 +38,44 @@
         </div>
 
         <hr />
+
         <div class="row">
             <div class="col-sm-12">
-                <table class="table table-sm table-striped" id="tbventa">
+                <table class="table table-sm table-striped" id="tbRenta">
                     <thead>
                         <tr>
-                            <th>Fecha Registro</th>
-                            <th>Numero Venta</th>
-                            <th>Tipo Documento</th>
-                            <th>Documento Cliente</th>
-                            <th>Nombre Cliente</th>
+                            <th>Fecha Inicio</th>
+                            <th>Fecha Fin</th>
+                            <th>Número de Renta</th>
+                            <th>Cliente</th>
+                            <th>Vehículo</th>
                             <th>Total</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>27/04/2022</td>
+                            <td>2022-04-27</td>
+                            <td>2022-04-30</td>
                             <td>00001</td>
-                            <td>Boleta</td>
-                            <td>101010</td>
-                            <td>jose</td>
-                            <td>2000</td>
+                            <td>José Pérez</td>
+                            <td>Toyota Corolla</td>
+                            <td>$200.00</td>
                             <td><button class="btn btn-info btn-sm" data-toggle="modal" data-target="#modalData"><i class="fas fa-eye"></i> Ver Detalle</button></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-
         </div>
     </div>
 </div>
 
-<!--  Modal-->
+<!-- Modal Detalle Renta -->
 <div class="modal fade" id="modalData" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h6>Detalle Venta</h6>
+                <h6>Detalle de Renta</h6>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -87,58 +86,78 @@
                         <div class="col-sm-12">
                             <div class="form-row">
                                 <div class="form-group col-sm-4">
-                                    <label for="txtFechaRegistro">Fecha Registro</label>
-                                    <input type="text" class="form-control form-control-sm" id="txtFechaRegistro" disabled>
+                                    <label for="txtFechaInicioDetalle">Fecha Inicio</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtFechaInicioDetalle" disabled>
                                 </div>
                                 <div class="form-group col-sm-4">
-                                    <label for="txtNumVenta">Numero Venta</label>
-                                    <input type="text" class="form-control form-control-sm" id="txtNumVenta" disabled>
+                                    <label for="txtFechaFinDetalle">Fecha Fin</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtFechaFinDetalle" disabled>
                                 </div>
                                 <div class="form-group col-sm-4">
-                                    <label for="txtUsuarioRegistro">Usuario Registro</label>
-                                    <input type="text" class="form-control form-control-sm" id="txtUsuarioRegistro" disabled>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-sm-4">
-                                    <label for="txtTipoDocumento">Tipo Documento</label>
-                                    <input type="text" class="form-control form-control-sm" id="txtTipoDocumento" disabled>
-                                </div>
-                                <div class="form-group col-sm-4">
-                                    <label for="txtDocumentoCliente">Documento Cliente</label>
-                                    <input type="text" class="form-control form-control-sm" id="txtDocumentoCliente" disabled>
-                                </div>
-                                <div class="form-group col-sm-4">
-                                    <label for="txtNombreCliente">Nombre Cliente</label>
-                                    <input type="text" class="form-control form-control-sm" id="txtNombreCliente" disabled>
+                                    <label for="txtNumeroRentaDetalle">Número de Renta</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtNumeroRentaDetalle" disabled>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-sm-4">
-                                    <label for="txtSubTotal">Sub Total</label>
-                                    <input type="text" class="form-control form-control-sm" id="txtSubTotal" disabled>
+                                    <label for="txtNombreClienteDetalle">Nombre Cliente</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtNombreClienteDetalle" disabled>
                                 </div>
                                 <div class="form-group col-sm-4">
-                                    <label for="txtIGV">IGV</label>
-                                    <input type="text" class="form-control form-control-sm" id="txtIGV" disabled>
+                                    <label for="txtDocumentoClienteDetalle">DUI Cliente</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtDocumentoClienteDetalle" disabled>
                                 </div>
                                 <div class="form-group col-sm-4">
-                                    <label for="txtTotal">Total</label>
-                                    <input type="text" class="form-control form-control-sm" id="txtTotal" disabled>
+                                    <label for="txtTipoLicenciaDetalle">Tipo Licencia</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtTipoLicenciaDetalle" disabled>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-4">
+                                    <label for="txtTelefonoClienteDetalle">Teléfono Cliente</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtTelefonoClienteDetalle" disabled>
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="txtDireccionClienteDetalle">Dirección Cliente</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtDireccionClienteDetalle" disabled>
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="txtEmailClienteDetalle">Email Cliente</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtEmailClienteDetalle" disabled>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-4">
+                                    <label for="txtSubTotalDetalle">Sub Total</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtSubTotalDetalle" disabled>
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="txtIGVDetalle">IGV</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtIGVDetalle" disabled>
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="txtTotalDetalle">Total</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtTotalDetalle" disabled>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <table id="tbProductos" class="table table-sm table-striped">
+                                    <table id="tbVehiculos" class="table table-sm table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Producto</th>
+                                                <th>Vehículo</th>
                                                 <th>Cantidad</th>
                                                 <th>Precio</th>
                                                 <th>Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <tr>
+                                                <td>Toyota Corolla</td>
+                                                <td>1</td>
+                                                <td>$200.00</td>
+                                                <td>$200.00</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -154,7 +173,6 @@
         </div>
     </div>
 </div>
-
 @section Scripts{
     <script src="~/vendor/jquery-ui/jquery-ui.js"></script>
     <script src="~/vendor/jquery-ui/idioma/datepicker-es.js"></script>

@@ -13,12 +13,12 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3 bg-second-primary">
-        <h6 class="m-0 font-weight-bold text-white">Lista de Categorias</h6>
+        <h6 class="m-0 font-weight-bold text-white">Lista de Vehiculos</h6>
     </div>
     <div class="card-body">
         <div class="row">
             <div class="col-sm-3">
-                <button class="btn btn-success" data-toggle="modal" data-target="#modalData"><i class="fas fa-plus-circle"></i> Nueva Categoria</button>
+                <button class="btn btn-success" data-toggle="modal" data-target="#modalVehicle"><i class="fas fa-plus-circle"></i> Nueva Vehiculo</button>
             </div>
         </div>
         <hr />
@@ -27,7 +27,7 @@
                 <table class="table table-bordered" id="tbdata" cellspacing="0" style="width:100%">
                     <thead>
                         <tr>
-                            <th>Id</th>
+                            <th>Placas</th>
                             <th>Descripcion</th>
                             <th>Estado</th>
                             <th>Acciones</th>
@@ -68,31 +68,50 @@
 </div>
 
 <!--  Modal-->
-<div class="modal fade" id="modalData" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+<div class="modal fade" id="modalVehicle" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h6>Detalle Categoria</h6>
+                <h6>Detalle Vehículo</h6>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form>
-                    <input type="hidden" value="0" id="txtId">
+                    <input type="hidden" value="0" id="txtVehicleId">
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-row">
                                 <div class="form-group col-sm-6">
-                                    <label for="txtDescripcion">Descripcion</label>
-                                    <input type="text" class="form-control form-control-sm" id="txtDescripcion">
+                                    <label for="txtMarca">Marca</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtMarca">
                                 </div>
                                 <div class="form-group col-sm-6">
-                                    <label for="cboEstado">Estado</label>
-                                    <select class="form-control form-control-sm" id="cboEstado">
-                                        <option value="1">Activo</option>
-                                        <option value="0">No Activo</option>
-                                    </select>
+                                    <label for="txtModelo">Modelo</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtModelo">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    <label for="txtAno">Año</label>
+                                    <input type="number" class="form-control form-control-sm" id="txtAno">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="txtPlacas">Placas</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtPlacas">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-12">
+                                    <label for="txtDescripcionVehiculo">Descripción</label>
+                                    <textarea class="form-control form-control-sm" id="txtDescripcionVehiculo" rows="2"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    <label for="txtPrecioRenta">Precio de Renta</label>
+                                    <input type="number" class="form-control form-control-sm" id="txtPrecioRenta" step="0.01">
                                 </div>
                             </div>
                         </div>
@@ -100,8 +119,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary btn-sm" type="button" id="btnGuardar">Guardar</button>
-                <button class="btn btn-danger btn-sm" type="button" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-primary btn-sm" type="button" id="btnGuardarVehiculo">Guardar</button>
+                <button class="btn btn-danger btn-sm" type="button" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
     </div>
