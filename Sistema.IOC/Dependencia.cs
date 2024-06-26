@@ -23,6 +23,9 @@ namespace Sistema.IOC
             {
                 options.UseSqlServer(Configuration.GetConnectionString("cadenaSQL"));
             });
+
+            services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IRentasRepository, RentaRepository>();
         }
     }
 }
