@@ -11,6 +11,7 @@ using Sistema.DAL.Implementacion;
 using Sistema.DAL.Interfaces;
 using Sistema.BLL.Implementacion;
 using Sistema.BLL.Interfaces;
+using SistemaEntidades;
 
 
 namespace Sistema.IOC
@@ -19,13 +20,14 @@ namespace Sistema.IOC
     {
         public static void InyectarDependencia(this IServiceCollection services, IConfiguration Configuration)
         {
-            services.AddDbContext<CUSERSALIENDESKTOPPROYECTOSPROYECTO_RENTACARSISTEMAENTIDADESRENTACARMDFContext>(options =>
+            services.AddDbContext<>(options => CUSERSALIENDESKTOPPROYECTOSPROYECTO_RENTACARSISTEMAENTIDADESRENTACARMDFContext
             {
                 options.UseSqlServer(Configuration.GetConnectionString("cadenaSQL"));
             });
 
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IRentasRepository, RentaRepository>();
+
         }
     }
 }

@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using SistemaEntidades;
 
-namespace Sistema.DAL.DBContext
+namespace SistemaEntidades
 {
     public partial class CUSERSALIENDESKTOPPROYECTOSPROYECTO_RENTACARSISTEMAENTIDADESRENTACARMDFContext : DbContext
     {
@@ -18,6 +17,7 @@ namespace Sistema.DAL.DBContext
         }
 
         public virtual DbSet<Cliente> Clientes { get; set; } = null!;
+        public virtual DbSet<Configuracion> Configuracions { get; set; } = null!;
         public virtual DbSet<Empleado> Empleados { get; set; } = null!;
         public virtual DbSet<Factura> Facturas { get; set; } = null!;
         public virtual DbSet<Menu> Menus { get; set; } = null!;
@@ -27,10 +27,6 @@ namespace Sistema.DAL.DBContext
         public virtual DbSet<Rol> Rols { get; set; } = null!;
         public virtual DbSet<RolMenu> RolMenus { get; set; } = null!;
         public virtual DbSet<Vehiculo> Vehiculos { get; set; } = null!;
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -81,6 +77,28 @@ namespace Sistema.DAL.DBContext
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("tipo_licencia");
+            });
+
+            modelBuilder.Entity<Configuracion>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("Configuracion");
+
+                entity.Property(e => e.Propiedad)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("propiedad");
+
+                entity.Property(e => e.Recurso)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("recurso");
+
+                entity.Property(e => e.Valor)
+                    .HasMaxLength(60)
+                    .IsUnicode(false)
+                    .HasColumnName("valor");
             });
 
             modelBuilder.Entity<Empleado>(entity =>
