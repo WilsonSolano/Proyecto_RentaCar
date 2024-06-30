@@ -5,8 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Sistema.DAL.DBContext;
 using Sistema.DAL.Interfaces;
+using Sistema.DAL.DBContext;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using SistemaEntidades;
 
 namespace Sistema.DAL.Implementacion
 {

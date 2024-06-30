@@ -20,14 +20,17 @@ namespace Sistema.IOC
     {
         public static void InyectarDependencia(this IServiceCollection services, IConfiguration Configuration)
         {
-            services.AddDbContext<>(options => CUSERSALIENDESKTOPPROYECTOSPROYECTO_RENTACARSISTEMAENTIDADESRENTACARMDFContext
+            services.AddDbContext<CUSERSALIENDESKTOPPROYECTOSPROYECTO_RENTACARSISTEMAENTIDADESRENTACARMDFContext>(options => 
             {
                 options.UseSqlServer(Configuration.GetConnectionString("cadenaSQL"));
             });
 
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IRentasRepository, RentaRepository>();
-
+            services.AddScoped<ICorreoService, CorreoService>();
+            services.AddScoped<IFireBaseService, FireBaseService>();
+            services.AddScoped<IUtilidadesService, UtilidadesService>();
+            services.AddScoped<IRolService, RolService>();
         }
     }
 }
