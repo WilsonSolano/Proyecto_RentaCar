@@ -31,6 +31,7 @@ namespace Sistema.IOC
             services.AddScoped<IFireBaseService, FireBaseService>();
             services.AddScoped<IUtilidadesService, UtilidadesService>();
             services.AddScoped<IRolService, RolService>();
+            services.AddScoped<IUsuario, EmpleadoService>();
         }
     }
 }

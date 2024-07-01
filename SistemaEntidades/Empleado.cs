@@ -17,7 +17,7 @@ namespace SistemaEntidades
         public string Email { get; set; } = null!;
         public string Usuario { get; set; } = null!;
         public decimal SueldoBase { get; set; }
-        public byte[] Contrasena { get; set; } = null!;
+        public string Contrasena { get; set; } = null!;
         public int IdPuesto { get; set; }
         public string UrlImagen { get; set; } = null!;
 
