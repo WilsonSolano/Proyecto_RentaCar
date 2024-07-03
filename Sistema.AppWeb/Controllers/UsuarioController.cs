@@ -76,5 +76,60 @@ namespace SistemaRentaCarAppWeb.Controllers
 
             return StatusCode(StatusCodes.Status200OK, gResponse);
         }
+
+        [HttpPut]
+        public async Task<IActionResult> Editar([FromForm] IFormFile foto, [FromForm] string modelo)
+        {
+            GenericResponse<VMEmpleado> gResponse = new GenericResponse<VMEmpleado>();
+
+            try
+            {
+                VMEmpleado vmEmpleado = JsonConvert.DeserializeObject<VMEmpleado>(modelo);
+                string nombreFoto = "";
+                Stream fotoStream = null;
+
+                if (foto != null)
+                {
+                    string nombre_en_codigo = Guid.NewGuid().ToString("N");
+                    string extension = Path.GetExtension(foto.FileName);
+                    nombreFoto = String.Concat(nombre_en_codigo, extension);
+                    fotoStream = foto.OpenReadStream();
+                }
+
+
+                Empleado empleadoEditado = await _usuarioService.Editar(_mapper.Map<Empleado>(vmEmpleado), fotoStream, nombreFoto);
+
+                vmEmpleado = _mapper.Map<VMEmpleado>(empleadoEditado);
+
+                gResponse.Estado = true;
+                gResponse.Objeto = vmEmpleado;
+            }
+            catch (Exception ex)
+            {
+                gResponse.Estado = false;
+                gResponse.Mensaje = ex.Message;
+            }
+
+            return StatusCode(StatusCodes.Status200OK, gResponse);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Eliminar(int IdUsuario)
+        {
+            GenericResponse<string> gResponse = new GenericResponse<string>();
+
+            try
+            {
+                gResponse.Estado = await _usuarioService.Eliminar(IdUsuario);
+            }
+            catch(Exception ex)
+            {
+                gResponse.Estado = false;
+                gResponse.Mensaje = ex.Message;
+            }
+
+            return StatusCode(StatusCodes.Status200OK, gResponse);
+        }
+
     }
 }
