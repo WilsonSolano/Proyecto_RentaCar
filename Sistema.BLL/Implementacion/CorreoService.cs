@@ -43,6 +43,7 @@ namespace Sistema.BLL.Implementacion
                 {
                     Host = config["host"],
                     Port = int.Parse(config["puerto"]),
+                    Credentials = credenciales,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
                     UseDefaultCredentials = false,
                     EnableSsl = true,
