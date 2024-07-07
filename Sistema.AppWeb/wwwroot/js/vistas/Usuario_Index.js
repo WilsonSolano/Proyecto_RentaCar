@@ -12,6 +12,20 @@
 let tablaData;
 
 $(document).ready(function () {
+
+    fetch("/Usuario/ListaRoles").then(respose => {
+        return respose.ok ? respose.json() : Promise.reject(respose);
+    })
+        .then(resposeJson => {
+        if (resposeJson.length > 0) {
+            resposeJson.forEach((item) => {
+                $("#cboPuesto").append(
+                    $("<option>").val(item.idRol).text(item.descripcion)
+                )
+            })
+        }
+    })
+
     tablaData = $('#tbdata').DataTable({
         responsive: true,
          "ajax": {
@@ -27,6 +41,8 @@ $(document).ready(function () {
              { "data": "email" },
              { "data": "usuario" },
              { "data": "sueldoBase" },
+             //{ "data": "idPuesto", "visible": false, "searchable": false },
+             //{ "data": "dui", "visible": false, "searchable": false },
              {
                  "defaultContent": '<button class="btn btn-primary btn-editar btn-sm mr-2"><i class="fas fa-pencil-alt"></i></button>' +
                      '<button class="btn btn-danger btn-eliminar btn-sm"><i class="fas fa-trash-alt"></i></button>',
@@ -53,3 +69,24 @@ $(document).ready(function () {
         },
     });
 });
+
+
+
+function mostrarModal(modelo = modelo_base) {
+    $("#txtDUI").val(modelo.dui);
+    $("#txtNombre").val(modelo.nombre);
+    $("#txtApellido").val(modelo.apellido);
+    $("#txtEmail").val(modelo.email);
+    $("#txtUsuario").val(modelo.usuario);
+    $("#txtSueldoBase").val(modelo.sueldo_base);
+    $("#cboPuesto").val(modelo.id_puesto == 1 ? $("#cboPuesto option:first").val : modelo.id_puesto);
+    $("#txtContrasena").val("");
+    $("#imgEmpleado").attr("src", modelo.url_imagen);
+
+
+    $("#modalData").modal("show");
+}
+
+$("#btnNuevo").click(function () {
+    mostrarModal()
+})
