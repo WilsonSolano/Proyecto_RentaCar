@@ -87,6 +87,61 @@ function mostrarModal(modelo = modelo_base) {
     $("#modalData").modal("show");
 }
 
+
 $("#btnNuevo").click(function () {
     mostrarModal()
 })
+
+$("#btnGuardar").click(function () {
+/*    debugger;*/
+
+    const inputs = $("input.input-validar").serializeArray();
+    const inputEmpy = inputs.filter((item) => item.value.trim() == "");
+
+    if (inputEmpy.length > 0) {
+        const mensaje = 'Debe completar el campo : "${inputEmpy[0].name}"';
+
+        toastr.warning("", mensaje);
+
+        $('input[name="${inputEmpy[0].name}"]').focus();
+        return;
+    }
+
+    const modelo = structuredClone(modelo_base);
+
+    modelo["nombre"] = $("#txtNombre").val();
+    modelo["dui"] = $("#txtDUI").val();
+    modelo["apellido"] = $("#txtApellido").val();
+    modelo["email"] = $("#txtEmail").val();
+    modelo["usuario"] = $("#txtUsuario").val();
+    modelo["sueldo_base"] = $("#txtSueldoBase").val();
+    modelo["id_puesto"] = $("#cboPuesto").val();
+
+    const inputFoto = document.getElementById("txtFoto");
+
+    const formData = new FormData();
+
+    formData.append("foto", inputFoto.files[0]);
+    formData.append("modelo", JSON.stringify(modelo));
+
+    $("#modalData").find("div.modal-content").LoadingOverlay("show");
+
+    if (modelo.id_empleado == 0) {
+        fetch("/Usuario/Crear", {
+            method: "POST",
+            body: formData
+        }).then(respose => {
+            $("#modalData").find("div.modal-content").LoadingOverlay("hide");
+            return respose.ok ? respose.json() : Promise.reject(respose);
+        }).then(responseJson => {
+            if (responseJson.estado) {
+                tablaData.row.add(responseJson.objeto).draw(false);
+                $("#modalData").modal("hide");
+                swal("¡Listo!", "Empleado Creado", "Success")
+            } else {
+                swal("Lo Sentimos", responseJson.mensaje, "error")
+            }
+        })
+    }
+})
+
