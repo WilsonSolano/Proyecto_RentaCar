@@ -20,8 +20,9 @@ namespace SistemaEntidades
         public string Contrasena { get; set; } = null!;
         public int IdPuesto { get; set; }
         public string UrlImagen { get; set; } = null!;
+        public bool? EsActivo { get; set; }
 
-        public virtual Puesto IdPuestoNavigation { get; set; } = null!;
+        public virtual Rol IdPuestoNavigation { get; set; } = null!;
         public virtual ICollection<Renta> Renta { get; set; }
     }
 }

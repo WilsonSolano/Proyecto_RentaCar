@@ -7,6 +7,7 @@ namespace SistemaEntidades
     {
         public Rol()
         {
+            Empleados = new HashSet<Empleado>();
             RolMenus = new HashSet<RolMenu>();
         }
 
@@ -15,6 +16,7 @@ namespace SistemaEntidades
         public bool? EsActivo { get; set; }
         public DateTime? FechaRegistro { get; set; }
 
+        public virtual ICollection<Empleado> Empleados { get; set; }
         public virtual ICollection<RolMenu> RolMenus { get; set; }
     }
 }

@@ -1,13 +1,14 @@
 ﻿const modelo_base = {
-    id_empleado : "",
+    id_empleado : 0,
     dui : "",
     nombre : "",
     apellido : "",
     email : "",
     usuario : "",
-    sueldo_base : "",
-    id_puesto : "",
-    url_imagen : ""
+    sueldoBase : "",
+    idPuesto : "",
+    urlImagen: "",
+    "es_activo": "",
 }
 let tablaData;
 
@@ -73,6 +74,7 @@ $(document).ready(function () {
 
 
 function mostrarModal(modelo = modelo_base) {
+    $("txtId").val(modelo.id_empleado);
     $("#txtDUI").val(modelo.dui);
     $("#txtNombre").val(modelo.nombre);
     $("#txtApellido").val(modelo.apellido);
@@ -93,22 +95,21 @@ $("#btnNuevo").click(function () {
 })
 
 $("#btnGuardar").click(function () {
-/*    debugger;*/
-
     const inputs = $("input.input-validar").serializeArray();
     const inputEmpy = inputs.filter((item) => item.value.trim() == "");
 
     if (inputEmpy.length > 0) {
-        const mensaje = 'Debe completar el campo : "${inputEmpy[0].name}"';
+        const mensaje = `Debe completar el campo : "${inputEmpy[0].name}"`;
 
         toastr.warning("", mensaje);
 
-        $('input[name="${inputEmpy[0].name}"]').focus();
+        $(`input[name="${inputEmpy[0].name}"]`).focus();
         return;
     }
 
     const modelo = structuredClone(modelo_base);
 
+    modelo["id_empleado"] = parseInt($("txtId").val());
     modelo["nombre"] = $("#txtNombre").val();
     modelo["dui"] = $("#txtDUI").val();
     modelo["apellido"] = $("#txtApellido").val();
@@ -116,6 +117,9 @@ $("#btnGuardar").click(function () {
     modelo["usuario"] = $("#txtUsuario").val();
     modelo["sueldo_base"] = $("#txtSueldoBase").val();
     modelo["id_puesto"] = $("#cboPuesto").val();
+    modelo["es_activo"] = $("#cboEstado").val();
+
+    debugger;
 
     const inputFoto = document.getElementById("txtFoto");
 

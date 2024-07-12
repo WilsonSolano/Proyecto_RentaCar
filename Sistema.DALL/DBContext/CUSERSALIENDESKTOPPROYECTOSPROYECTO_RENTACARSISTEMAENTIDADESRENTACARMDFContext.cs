@@ -22,7 +22,6 @@ namespace SistemaEntidades
         public virtual DbSet<Factura> Facturas { get; set; } = null!;
         public virtual DbSet<Menu> Menus { get; set; } = null!;
         public virtual DbSet<Multa> Multas { get; set; } = null!;
-        public virtual DbSet<Puesto> Puestos { get; set; } = null!;
         public virtual DbSet<Renta> Rentas { get; set; } = null!;
         public virtual DbSet<Rol> Rols { get; set; } = null!;
         public virtual DbSet<RolMenu> RolMenus { get; set; } = null!;
@@ -104,15 +103,15 @@ namespace SistemaEntidades
             modelBuilder.Entity<Empleado>(entity =>
             {
                 entity.HasKey(e => e.IdEmpleado)
-                    .HasName("PK__Empleado__88B513944258B66D");
+                    .HasName("PK__tmp_ms_x__88B51394B1AADF35");
 
-                entity.HasIndex(e => e.Usuario, "UQ__Empleado__9AFF8FC6DD1CB292")
+                entity.HasIndex(e => e.Usuario, "UQ__tmp_ms_x__9AFF8FC6BBF14E4C")
                     .IsUnique();
 
-                entity.HasIndex(e => e.Email, "UQ__Empleado__AB6E61647FC2E37A")
+                entity.HasIndex(e => e.Email, "UQ__tmp_ms_x__AB6E6164FFFA4357")
                     .IsUnique();
 
-                entity.HasIndex(e => e.Dui, "UQ__Empleado__C03671B9EEFBC416")
+                entity.HasIndex(e => e.Dui, "UQ__tmp_ms_x__C03671B9900B818D")
                     .IsUnique();
 
                 entity.Property(e => e.IdEmpleado).HasColumnName("id_empleado");
@@ -122,7 +121,10 @@ namespace SistemaEntidades
                     .IsUnicode(false)
                     .HasColumnName("apellido");
 
-                entity.Property(e => e.Contrasena).HasColumnName("contrasena");
+                entity.Property(e => e.Contrasena)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("contrasena");
 
                 entity.Property(e => e.Dui)
                     .HasMaxLength(10)
@@ -133,6 +135,11 @@ namespace SistemaEntidades
                     .HasMaxLength(100)
                     .IsUnicode(false)
                     .HasColumnName("email");
+
+                entity.Property(e => e.EsActivo)
+                    .IsRequired()
+                    .HasColumnName("es_activo")
+                    .HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.IdPuesto).HasColumnName("id_puesto");
 
@@ -160,7 +167,7 @@ namespace SistemaEntidades
                     .WithMany(p => p.Empleados)
                     .HasForeignKey(d => d.IdPuesto)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Empleados__id_pu__33008CF0");
+                    .HasConstraintName("FK__Empleados__id_pu__0504B816");
             });
 
             modelBuilder.Entity<Factura>(entity =>
@@ -261,24 +268,6 @@ namespace SistemaEntidades
                     .HasConstraintName("FK__Multas__id_renta__2F2FFC0C");
             });
 
-            modelBuilder.Entity<Puesto>(entity =>
-            {
-                entity.HasKey(e => e.IdPuesto)
-                    .HasName("PK__tmp_ms_x__123AAB9917E3F8EE");
-
-                entity.Property(e => e.IdPuesto).HasColumnName("id_puesto");
-
-                entity.Property(e => e.Descripcion)
-                    .HasMaxLength(350)
-                    .IsUnicode(false)
-                    .HasColumnName("descripcion");
-
-                entity.Property(e => e.NombrePuesto)
-                    .HasMaxLength(100)
-                    .IsUnicode(false)
-                    .HasColumnName("nombre_puesto");
-            });
-
             modelBuilder.Entity<Renta>(entity =>
             {
                 entity.HasKey(e => e.IdRenta)
@@ -314,7 +303,7 @@ namespace SistemaEntidades
                     .WithMany(p => p.Renta)
                     .HasForeignKey(d => d.IdEmpleado)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Rentas__id_emple__297722B6");
+                    .HasConstraintName("FK__Rentas__id_emple__77AABCF8");
 
                 entity.HasOne(d => d.IdVehiculoNavigation)
                     .WithMany(p => p.Renta)

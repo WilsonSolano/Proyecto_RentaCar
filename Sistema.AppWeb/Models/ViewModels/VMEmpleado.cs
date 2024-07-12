@@ -12,6 +12,7 @@ namespace Sistema.AppWeb.Models.ViewModels
         public string Usuario { get; set; } = null!;
         public decimal SueldoBase { get; set; }
         public int IdPuesto { get; set; }
+        public int es_activo { get; set; }
         public string UrlImagen { get; set; } = null!;
     }
 }
