@@ -150,6 +150,32 @@ $("#btnGuardar").click(function () {
 });
 
 
+let filaSeleccionada;
+$("#tbdata tbody").on("click", ".btn-editar", function () {
+    if ($(this).closest("tr").hasClass("child"))
+    {
+        filaSeleccionada = $(this).closest("tr").prev();
+    }
+    else
+    {
+        filaSeleccionada = $(this).closest("tr");
+    }
+
+    const data = tablaData.row(filaSeleccionada).data()
+
+    mostrarModal(data);
+    console.log(data);
+})
+
+
+
+
+
+
+
+
+
+
 //const modelo_base = {
 //    idEmpleado : 0,
 //    dui : "",
