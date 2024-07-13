@@ -11,7 +11,7 @@ namespace Sistema.BLL.Interfaces
     {
         Task<List<Empleado>> Lista();
         Task<Empleado> Crear(Empleado entidad, Stream Foto = null, string NombreFoto = "", string UrlPlantillaCorreo = "");
-        Task<Empleado> Editar(Empleado entidad, Stream Foto = null, string NombreFoto = "");
+        Task<Empleado> Editar(Empleado entidad, Stream Foto = null);
         Task<bool> Eliminar(int IdUsuario);
         Task<Empleado> ObtenerPorCredenciales(string correo, string clave);
         Task<Empleado> ObtenerPorId(int IdUsuario);

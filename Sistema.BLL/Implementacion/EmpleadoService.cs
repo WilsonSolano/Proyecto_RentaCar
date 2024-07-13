@@ -96,7 +96,7 @@ namespace Sistema.BLL.Implementacion
             }
         }
 
-        public async Task<Empleado> Editar(Empleado entidad, Stream Foto = null, string NombreFoto = "")
+        public async Task<Empleado> Editar(Empleado entidad, Stream Foto = null)
         {
             Empleado empleado_existe = await _repository.Obtener(e => e.Email == entidad.Email && e.IdEmpleado != entidad.IdEmpleado);
             if (empleado_existe != null)
@@ -109,7 +109,6 @@ namespace Sistema.BLL.Implementacion
 
                 empleado_editar.Nombre = entidad.Nombre;
                 empleado_editar.Email = entidad.Email;
-                empleado_editar.Contrasena = entidad.Contrasena;
                 empleado_editar.IdPuesto = entidad.IdPuesto;
 
 

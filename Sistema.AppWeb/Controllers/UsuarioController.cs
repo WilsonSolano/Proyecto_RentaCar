@@ -85,19 +85,18 @@ namespace SistemaRentaCarAppWeb.Controllers
             try
             {
                 VMEmpleado vmEmpleado = JsonConvert.DeserializeObject<VMEmpleado>(modelo);
-                string nombreFoto = "";
                 Stream fotoStream = null;
 
                 if (foto != null)
                 {
-                    string nombre_en_codigo = Guid.NewGuid().ToString("N");
-                    string extension = Path.GetExtension(foto.FileName);
-                    nombreFoto = String.Concat(nombre_en_codigo, extension);
+                    //string nombre_en_codigo = Guid.NewGuid().ToString("N");
+                    //string extension = Path.GetExtension(foto.FileName);
+                    ////nombreFoto = String.Concat(nombre_en_codigo, extension);
                     fotoStream = foto.OpenReadStream();
                 }
 
 
-                Empleado empleadoEditado = await _usuarioService.Editar(_mapper.Map<Empleado>(vmEmpleado), fotoStream, nombreFoto);
+                Empleado empleadoEditado = await _usuarioService.Editar(_mapper.Map<Empleado>(vmEmpleado), fotoStream);
 
                 vmEmpleado = _mapper.Map<VMEmpleado>(empleadoEditado);
 

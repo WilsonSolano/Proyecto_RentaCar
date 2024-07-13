@@ -75,16 +75,15 @@ $(document).ready(function () {
 
 
 function mostrarModal(modelo = modelo_base) {
-    $("txtId").val(modelo.id_empleado);
+    $("#txtId").val(modelo.idEmpleado);
     $("#txtDUI").val(modelo.dui);
     $("#txtNombre").val(modelo.nombre);
     $("#txtApellido").val(modelo.apellido);
     $("#txtEmail").val(modelo.email);
     $("#txtUsuario").val(modelo.usuario);
-    $("#txtSueldoBase").val(modelo.sueldo_base);
-    $("#cboPuesto").val(modelo.id_puesto == 1 ? $("#cboPuesto option:first").val : modelo.id_puesto);
-    $("#txtContrasena").val("");
-    $("#imgEmpleado").attr("src", modelo.url_imagen);
+    $("#txtSueldoBase").val(modelo.sueldoBase);
+    $("#cboPuesto").val(modelo.idPuesto == 1 ? $("#cboPuesto option:first").val() : modelo.idPuesto);
+    $("#imgEmpleado").attr("src", modelo.urlImagen);
 
 
     $("#modalData").modal("show");
@@ -95,6 +94,20 @@ $("#btnNuevo").click(function () {
     mostrarModal()
 })
 
+let filaSeleccionada;
+$("#tbdata tbody").on("click", ".btn-editar", function () {
+    if ($(this).closest("tr").hasClass("child")) {
+        filaSeleccionada = $(this).closest("tr").prev();
+    }
+    else {
+        filaSeleccionada = $(this).closest("tr");
+    }
+
+    const data = tablaData.row(filaSeleccionada).data()
+
+    mostrarModal(data);
+    console.log(data);
+})
 
 $("#btnGuardar").click(function () {
     const inputs = $("input.input-validar").serializeArray();
@@ -117,7 +130,7 @@ $("#btnGuardar").click(function () {
     modelo.usuario = $("#txtUsuario").val();
     modelo.sueldoBase = $("#txtSueldoBase").val();
     modelo.idPuesto = $("#cboPuesto").val();
-    modelo.es_activo = $("#cboEstado").val();
+    modelo.esActivo = $("#cboEstado").val();
 
     const inputFoto = document.getElementById("txtFoto");
 
@@ -128,44 +141,52 @@ $("#btnGuardar").click(function () {
 
     $("#modalData").find("div.modal-content").LoadingOverlay("show");
 
-    fetch("/Usuario/Crear", {
-        method: "POST",
-        body: formData
-    }).then(response => {
-        $("#modalData").find("div.modal-content").LoadingOverlay("hide");
-        return response.ok ? response.json() : Promise.reject(response);
-    }).then(responseJson => {
-        if (responseJson.estado) {
-            tablaData.row.add(responseJson.objeto).draw(false);
-            $("#modalData").modal("hide");
-            swal("¡Listo!", "Empleado Creado", "success");
-        } else {
-            swal("Lo Sentimos", responseJson.mensaje, "error");
-        }
-    }).catch(error => {
-        $("#modalData").find("div.modal-content").LoadingOverlay("hide");
-        swal("Error", "No se pudo crear el empleado", "error");
-        console.error('Error:', error);
-    });
+    if (modelo.idEmpleado == 0) {
+        fetch("/Usuario/Crear", {
+            method: "POST",
+            body: formData
+        }).then(response => {
+            $("#modalData").find("div.modal-content").LoadingOverlay("hide");
+            return response.ok ? response.json() : Promise.reject(response);
+        }).then(responseJson => {
+            if (responseJson.estado) {
+                tablaData.row.add(responseJson.objeto).draw(false);
+                $("#modalData").modal("hide");
+                swal("¡Listo!", "Empleado Creado", "success");
+            } else {
+                swal("Lo Sentimos", responseJson.mensaje, "error");
+            }
+        }).catch(error => {
+            $("#modalData").find("div.modal-content").LoadingOverlay("hide");
+            swal("Error", "No se pudo crear el empleado", "error");
+            console.error('Error:', error);
+        });
+    } else {
+        fetch("/Usuario/Editar", {
+            method: "PUT",
+            body: formData
+        }).then(response => {
+            $("#modalData").find("div.modal-content").LoadingOverlay("hide");
+            return response.ok ? response.json() : Promise.reject(response);
+        }).then(responseJson => {
+            if (responseJson.estado) {
+                tablaData.row(filaSeleccionada).data(responseJson).draw(false);
+                filaSeleccionada = null
+                $("#modalData").modal("hide");
+                swal("¡Listo!", "Empleado Fue Modificado", "success");
+            } else {
+                swal("Lo Sentimos", responseJson.mensaje, "error");
+            }
+        }).catch(error => {
+            $("#modalData").find("div.modal-content").LoadingOverlay("hide");
+            swal("Error", "No se pudo crear el empleado", "error");
+            console.error('Error:', error);
+        });
+    }
 });
 
 
-let filaSeleccionada;
-$("#tbdata tbody").on("click", ".btn-editar", function () {
-    if ($(this).closest("tr").hasClass("child"))
-    {
-        filaSeleccionada = $(this).closest("tr").prev();
-    }
-    else
-    {
-        filaSeleccionada = $(this).closest("tr");
-    }
 
-    const data = tablaData.row(filaSeleccionada).data()
-
-    mostrarModal(data);
-    console.log(data);
-})
 
 
 
