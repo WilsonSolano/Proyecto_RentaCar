@@ -81,6 +81,7 @@ namespace SistemaRentaCarAppWeb.Controllers
         public async Task<IActionResult> Editar([FromForm] IFormFile foto, [FromForm] string modelo)
         {
             GenericResponse<VMEmpleado> gResponse = new GenericResponse<VMEmpleado>();
+            string nombreFoto = "";
 
             try
             {
@@ -89,14 +90,14 @@ namespace SistemaRentaCarAppWeb.Controllers
 
                 if (foto != null)
                 {
-                    //string nombre_en_codigo = Guid.NewGuid().ToString("N");
-                    //string extension = Path.GetExtension(foto.FileName);
-                    ////nombreFoto = String.Concat(nombre_en_codigo, extension);
+                    string nombre_en_codigo = Guid.NewGuid().ToString("N");
+                    string extension = Path.GetExtension(foto.FileName);
+                    nombreFoto = String.Concat(nombre_en_codigo, extension);
                     fotoStream = foto.OpenReadStream();
                 }
 
 
-                Empleado empleadoEditado = await _usuarioService.Editar(_mapper.Map<Empleado>(vmEmpleado), fotoStream);
+                Empleado empleadoEditado = await _usuarioService.Editar(_mapper.Map<Empleado>(vmEmpleado), fotoStream, nombreFoto);
 
                 vmEmpleado = _mapper.Map<VMEmpleado>(empleadoEditado);
 

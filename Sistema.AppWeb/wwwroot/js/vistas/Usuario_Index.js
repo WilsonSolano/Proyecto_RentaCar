@@ -9,9 +9,11 @@
     idPuesto: 1,
     urlImagen: "",
     es_activo: 1,
-}
-
+};
 let tablaData;
+let filaSeleccionada;
+const fileImagenPreview = document.getElementById("txtFoto");
+const tagImg = document.getElementById("imgUsuario");
 
 $(document).ready(function () {
 
@@ -72,8 +74,6 @@ $(document).ready(function () {
     });
 });
 
-
-
 function mostrarModal(modelo = modelo_base) {
     $("#txtId").val(modelo.idEmpleado);
     $("#txtDUI").val(modelo.dui);
@@ -83,7 +83,7 @@ function mostrarModal(modelo = modelo_base) {
     $("#txtUsuario").val(modelo.usuario);
     $("#txtSueldoBase").val(modelo.sueldoBase);
     $("#cboPuesto").val(modelo.idPuesto == 1 ? $("#cboPuesto option:first").val() : modelo.idPuesto);
-    $("#imgEmpleado").attr("src", modelo.urlImagen);
+    $("#imgUsuario").attr("src", modelo.urlImagen);
 
 
     $("#modalData").modal("show");
@@ -94,7 +94,6 @@ $("#btnNuevo").click(function () {
     mostrarModal()
 })
 
-let filaSeleccionada;
 $("#tbdata tbody").on("click", ".btn-editar", function () {
     if ($(this).closest("tr").hasClass("child")) {
         filaSeleccionada = $(this).closest("tr").prev();
@@ -151,6 +150,7 @@ $("#btnGuardar").click(function () {
         }).then(responseJson => {
             if (responseJson.estado) {
                 tablaData.row.add(responseJson.objeto).draw(false);
+                $('#txtFoto').val('');
                 $("#modalData").modal("hide");
                 swal("¡Listo!", "Empleado Creado", "success");
             } else {
@@ -158,6 +158,7 @@ $("#btnGuardar").click(function () {
             }
         }).catch(error => {
             $("#modalData").find("div.modal-content").LoadingOverlay("hide");
+            $('#txtFoto').val('');
             swal("Error", "No se pudo crear el empleado", "error");
             console.error('Error:', error);
         });
@@ -170,14 +171,16 @@ $("#btnGuardar").click(function () {
             return response.ok ? response.json() : Promise.reject(response);
         }).then(responseJson => {
             if (responseJson.estado) {
-                tablaData.row(filaSeleccionada).data(responseJson).draw(false);
+                tablaData.row(filaSeleccionada).data(responseJson.objeto).draw(false);
                 filaSeleccionada = null
+                $('#txtFoto').val('');
                 $("#modalData").modal("hide");
                 swal("¡Listo!", "Empleado Fue Modificado", "success");
             } else {
                 swal("Lo Sentimos", responseJson.mensaje, "error");
             }
         }).catch(error => {
+            $('#txtFoto').val('');
             $("#modalData").find("div.modal-content").LoadingOverlay("hide");
             swal("Error", "No se pudo crear el empleado", "error");
             console.error('Error:', error);
@@ -185,7 +188,21 @@ $("#btnGuardar").click(function () {
     }
 });
 
+//Logica para el el preview de la imagen seleccionada
 
+fileImagenPreview.addEventListener('change', e => {
+    if (e.target.files[0]) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            tagImg.src = e.target.result;
+        }
+
+        reader.readAsDataURL(e.target.files[0])
+    } else {
+        tagImg.src = "";
+    }
+})
 
 
 
