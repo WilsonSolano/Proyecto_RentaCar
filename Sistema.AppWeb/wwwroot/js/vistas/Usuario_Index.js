@@ -5,7 +5,7 @@
     apellido: "",
     email: "",
     usuario: "",
-    sueldoBase: "",
+    sueldoBase: 0,
     idPuesto: 1,
     urlImagen: "",
     es_activo: 1,
@@ -38,13 +38,13 @@ $(document).ready(function () {
          "columns": [
              { "data": "idEmpleado", "visible": false, "searchable": false },
              { "data": "urlImagen", render: function (data) { return `<img style="height:60px" src=${data} class="rounded mx-auto d-block"/>` } },
+             { "data": "dui" },
              { "data": "nombre" },
              { "data": "apellido" },
              { "data": "email" },
              { "data": "usuario" },
              { "data": "sueldoBase" },
-             //{ "data": "idPuesto", "visible": false, "searchable": false },
-             //{ "data": "dui", "visible": false, "searchable": false },
+             { "data": "descripcion" },         
              {
                  "defaultContent": '<button class="btn btn-primary btn-editar btn-sm mr-2"><i class="fas fa-pencil-alt"></i></button>' +
                      '<button class="btn btn-danger btn-eliminar btn-sm"><i class="fas fa-trash-alt"></i></button>',

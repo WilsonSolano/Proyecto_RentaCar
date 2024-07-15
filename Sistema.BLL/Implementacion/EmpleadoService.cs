@@ -41,6 +41,7 @@ namespace Sistema.BLL.Implementacion
             {
                 string clave_generada = _utilidadesService.GenerarClave();
                 entidad.Contrasena = _utilidadesService.ConvertirSha256(clave_generada);
+                entidad.NombreFoto = NombreFoto;
                 
                 if(Foto != null)
                 {
@@ -96,7 +97,7 @@ namespace Sistema.BLL.Implementacion
             }
         }
 
-        public async Task<Empleado> Editar(Empleado entidad, Stream Foto = null)
+        public async Task<Empleado> Editar(Empleado entidad, Stream Foto = null, string nombreFoto = "")
         {
             Empleado empleado_existe = await _repository.Obtener(e => e.Email == entidad.Email && e.IdEmpleado != entidad.IdEmpleado);
             if (empleado_existe != null)
@@ -108,9 +109,21 @@ namespace Sistema.BLL.Implementacion
                 Empleado empleado_editar = queryUsuario.First();
 
                 empleado_editar.Nombre = entidad.Nombre;
+                empleado_editar.Apellido = entidad.Apellido;
+                empleado_editar.Usuario = entidad.Usuario;
+                empleado_editar.SueldoBase = entidad.SueldoBase;
+                empleado_editar.EsActivo = entidad.EsActivo;
                 empleado_editar.Email = entidad.Email;
                 empleado_editar.IdPuesto = entidad.IdPuesto;
 
+                if (empleado_editar.NombreFoto == "")
+                    empleado_editar.NombreFoto = nombreFoto;
+
+                if(Foto != null)
+                {
+                    string urlFoto = await _fireBaseService.subirStorage(Foto,"carpeta_usuario",empleado_editar.NombreFoto);
+                    empleado_editar.UrlImagen = urlFoto;
+                }
 
                 bool respuesta = await _repository.Editar(empleado_editar);
                 if (!respuesta)

@@ -61,7 +61,7 @@ namespace SistemaRentaCarAppWeb.Controllers
 
                 string urlPlantillaCorreo = $"{this.Request.Scheme}://{this.Request.Host}/Plantilla/EnviarClave?correo=[correo]&clave=[clave]";
 
-                Empleado empleadoCreado = await _usuarioService.Crear(_mapper.Map<Empleado>(vmEmpleado), fotoStream, nombreFoto, urlPlantillaCorreo);
+                 Empleado empleadoCreado = await _usuarioService.Crear(_mapper.Map<Empleado>(vmEmpleado), fotoStream, nombreFoto, urlPlantillaCorreo);
             
                 vmEmpleado = _mapper.Map<VMEmpleado>(empleadoCreado);
 

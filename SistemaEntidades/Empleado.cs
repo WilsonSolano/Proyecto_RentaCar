@@ -21,6 +21,7 @@ namespace SistemaEntidades
         public int IdPuesto { get; set; }
         public string UrlImagen { get; set; } = null!;
         public bool? EsActivo { get; set; }
+        public string? NombreFoto { get; set; }
 
         public virtual Rol IdPuestoNavigation { get; set; } = null!;
         public virtual ICollection<Renta> Renta { get; set; }

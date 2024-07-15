@@ -16,7 +16,9 @@ namespace Sistema.AppWeb.Utilidades.AutoMapper
             #region Empleado
             CreateMap<Empleado, VMEmpleado>()
                 .ForMember(destino => destino.es_activo,
-                    opt => opt.MapFrom(origen => origen.EsActivo == true ? 1 : 0));
+                    opt => opt.MapFrom(origen => origen.EsActivo == true ? 1 : 0))
+                .ForMember(destino => destino.Descripcion,
+                    opt => opt.MapFrom(origen => origen.IdPuestoNavigation.Descripcion));
 
             CreateMap<VMEmpleado, Empleado>()
                 .ForMember(destino => destino.EsActivo,
@@ -29,9 +31,9 @@ namespace Sistema.AppWeb.Utilidades.AutoMapper
             CreateMap<Vehiculo, VMVehiculo>().ReverseMap();
             #endregion
 
-            #region Empleado
-            CreateMap<Empleado, VMEmpleado>().ReverseMap();
-            #endregion
+            //#region Empleado
+            //CreateMap<Empleado, VMEmpleado>().ReverseMap();
+            //#endregion
 
             #region Renta
             CreateMap<VMRenta, Renta>().

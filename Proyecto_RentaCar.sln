@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sistema.IOC", "Sistema.IOC\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SistemaEntidades", "SistemaEntidades\SistemaEntidades.csproj", "{B20EDB28-8EA2-44F3-A720-1DFBDE9E5350}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sistema.AppWeb", "Sistema.AppWeb\Sistema.AppWeb.csproj", "{FD1E4BF1-21E8-4965-87BE-BE8AF8AAE2AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sistema.AppWeb", "Sistema.AppWeb\Sistema.AppWeb.csproj", "{FD1E4BF1-21E8-4965-87BE-BE8AF8AAE2AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -122,7 +122,7 @@ namespace SistemaEntidades
                     .HasColumnName("apellido");
 
                 entity.Property(e => e.Contrasena)
-                    .HasMaxLength(50)
+                    .HasMaxLength(100)
                     .IsUnicode(false)
                     .HasColumnName("contrasena");
 
@@ -147,6 +147,12 @@ namespace SistemaEntidades
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("nombre");
+
+                entity.Property(e => e.NombreFoto)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("nombre_foto")
+                    .HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.SueldoBase)
                     .HasColumnType("decimal(10, 2)")
