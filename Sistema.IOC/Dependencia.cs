@@ -32,6 +32,7 @@ namespace Sistema.IOC
             services.AddScoped<IUtilidadesService, UtilidadesService>();
             services.AddScoped<IRolService, RolService>();
             services.AddScoped<IUsuario, EmpleadoService>();
+            services.AddScoped<IVehiculosService, VehiculoService>();
         }
     }
 }
