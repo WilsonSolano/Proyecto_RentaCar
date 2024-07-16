@@ -46,7 +46,14 @@ $(document).ready(function () {
              { "data": "email" },
              { "data": "usuario" },
              { "data": "sueldoBase" },
-             { "data": "descripcion" },         
+             { "data": "descripcion" },
+             {"data": "es_activo", render: function (data) {
+                 if (data == 1) {
+                     return `<span class="badge badge-info">Activo</span>`;
+                 } else {
+                     return `<span class="badge badge-danger">No Activo</span>`;
+                 }
+                 }}, 
              {
                  "defaultContent": '<button class="btn btn-primary btn-editar btn-sm mr-2"><i class="fas fa-pencil-alt"></i></button>' +
                      '<button class="btn btn-danger btn-eliminar btn-sm"><i class="fas fa-trash-alt"></i></button>',
@@ -129,7 +136,7 @@ $("#btnGuardar").click(function () {
     modelo.usuario = $("#txtUsuario").val();
     modelo.sueldoBase = $("#txtSueldoBase").val();
     modelo.idPuesto = $("#cboPuesto").val();
-    modelo.esActivo = $("#cboEstado").val();
+    modelo.es_activo = $("#cboEstado").val();
 
     const inputFoto = document.getElementById("txtFoto");
 
