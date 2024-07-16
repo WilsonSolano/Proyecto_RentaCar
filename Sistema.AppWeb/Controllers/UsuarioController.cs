@@ -114,13 +114,13 @@ namespace SistemaRentaCarAppWeb.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Eliminar(int IdUsuario)
+        public async Task<IActionResult> Eliminar(int idEmpleado)
         {
             GenericResponse<string> gResponse = new GenericResponse<string>();
 
             try
             {
-                gResponse.Estado = await _usuarioService.Eliminar(IdUsuario);
+                gResponse.Estado = await _usuarioService.Eliminar(idEmpleado);
             }
             catch(Exception ex)
             {

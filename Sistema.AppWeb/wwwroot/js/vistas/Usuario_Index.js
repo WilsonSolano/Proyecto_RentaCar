@@ -112,7 +112,6 @@ $("#tbdata tbody").on("click", ".btn-editar", function () {
     const data = tablaData.row(filaSeleccionada).data()
 
     mostrarModal(data);
-    console.log(data);
 })
 
 $("#btnGuardar").click(function () {
@@ -196,7 +195,6 @@ $("#btnGuardar").click(function () {
 });
 
 //Logica para el el preview de la imagen seleccionada
-
 fileImagenPreview.addEventListener('change', e => {
     if (e.target.files[0]) {
         const reader = new FileReader();
@@ -211,7 +209,56 @@ fileImagenPreview.addEventListener('change', e => {
     }
 })
 
+//logica para eliminar un empleado
+$("#tbdata tbody").on("click", ".btn-eliminar", function () {
+    let fila;
 
+    if ($(this).closest("tr").hasClass("child")) {
+        fila = $(this).closest("tr").prev();
+    }
+    else {
+        fila = $(this).closest("tr");
+    }
+
+    const data = tablaData.row(fila).data()
+
+    swal({
+        title: "¿Está Seguro?",
+        text: `Eliminar al empleado "${data.nombre}"`,
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Si, eliminar",
+        cancelButtonText: "No, cancelar",
+        closeOnConfirm: false,
+        closeOnCancel:true
+    },
+        function (respuesta) {
+            if (respuesta) {
+                $(".showSweetAlert").LoadingOverlay("show");
+
+                fetch(`/Usuario/Eliminar?idEmpleado=${data.idEmpleado}`, {
+                    method: "DELETE"
+                }).then(response => {
+                    $(".showSweetAlert").LoadingOverlay("hide");
+                    return response.ok ? response.json() : Promise.reject(response);
+                }).then(responseJson => {
+                    if (responseJson.estado) {
+                        tablaData.row(fila).remove().draw();
+                        swal("¡Listo!", "Empleado Fue Eliminado", "success");
+                    } else {
+                        swal("Lo Sentimos", responseJson.mensaje, "error");
+                    }
+                }).catch(error => {
+                    $('#txtFoto').val('');
+                    $("#modalData").find("div.modal-content").LoadingOverlay("hide");
+                    swal("Error", "No se pudo eliminar el empleado", "error");
+                    console.error('Error:', error);
+                });
+            }
+        }
+    );
+})
 
 
 
