@@ -17,8 +17,9 @@ namespace SistemaEntidades
         public string? Descripcion { get; set; }
         public decimal PrecioRenta { get; set; }
         public string Placas { get; set; } = null!;
-        public int? Disponible { get; set; }
+        public bool? Disponible { get; set; }
         public string? UrlImagen { get; set; }
+        public string? NombreImagen { get; set; }
 
         public virtual ICollection<Renta> Renta { get; set; }
     }

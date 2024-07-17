@@ -399,6 +399,11 @@ namespace SistemaEntidades
                     .IsUnicode(false)
                     .HasColumnName("modelo");
 
+                entity.Property(e => e.NombreImagen)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("nombreImagen");
+
                 entity.Property(e => e.Placas)
                     .HasMaxLength(10)
                     .IsUnicode(false)

@@ -29,7 +29,7 @@ namespace Sistema.DAL.Implementacion
                 try
                 {
                     Vehiculo vehiculoSolicitado = _dbContext.Vehiculos.Where(p => p.IdVehiculo == entidad.IdVehiculo).First();
-                    vehiculoSolicitado.Disponible = 0;
+                    vehiculoSolicitado.Disponible = true;
                     _dbContext.Vehiculos.Update(vehiculoSolicitado);
 
                     await _dbContext.SaveChangesAsync();
